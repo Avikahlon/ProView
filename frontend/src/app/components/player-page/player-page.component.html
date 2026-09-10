@@ -1,0 +1,54 @@
+<a routerLink="/">← Back to Teams</a>
+
+<h1>{{ playerName }}</h1>
+
+<p *ngIf="loading">Loading player data...</p>
+<p *ngIf="error">{{ error }}</p>
+
+<section *ngIf="!loading && !error">
+  <h2>Career Summary</h2>
+  <table *ngIf="summary.length">
+    <thead>
+      <tr>
+        <th>Team</th>
+        <th>Games</th>
+        <th>Avg Kills</th>
+        <th>Avg Deaths</th>
+        <th>Avg Assists</th>
+        <th>Avg CS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of summary">
+        <td>{{ row.team }}</td>
+        <td>{{ row.games }}</td>
+        <td>{{ row.avg_kills | number:'1.1-1' }}</td>
+        <td>{{ row.avg_deaths | number:'1.1-1' }}</td>
+        <td>{{ row.avg_assists | number:'1.1-1' }}</td>
+        <td>{{ row.avg_cs | number:'1.0-0' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Champion Breakdown</h2>
+  <table *ngIf="champions.length">
+    <thead>
+      <tr>
+        <th>Champion</th>
+        <th>Games</th>
+        <th>Avg Kills</th>
+        <th>Avg Deaths</th>
+        <th>Avg Assists</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of champions">
+        <td>{{ row.champion }}</td>
+        <td>{{ row.games_played }}</td>
+        <td>{{ row.avg_kills | number:'1.1-1' }}</td>
+        <td>{{ row.avg_deaths | number:'1.1-1' }}</td>
+        <td>{{ row.avg_assists | number:'1.1-1' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
