@@ -1,0 +1,40 @@
+<a routerLink="/">← Back to Teams</a>
+
+<h1>{{ teamName }}</h1>
+
+<p *ngIf="loading">Loading roster...</p>
+<p *ngIf="error">{{ error }}</p>
+
+<section *ngIf="!loading && !error">
+  <h2>Roster</h2>
+  <ul>
+    <li *ngFor="let player of roster">
+      <a [routerLink]="['/player', player.player_name]">{{ player.player_name }}</a>
+      — {{ player.games_played }} games, last played {{ player.last_game | date }}
+    </li>
+  </ul>
+
+  <h2>Draft Tendencies</h2>
+  <table *ngIf="draftTendencies.length">
+    <thead>
+      <tr>
+        <th>Champion</th>
+        <th>Picked</th>
+        <th>Banned</th>
+        <th>Win Rate</th>
+        <th>Pick Rate</th>
+        <th>Ban Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of draftTendencies">
+        <td>{{ row.champion }}</td>
+        <td>{{ row.times_picked }}</td>
+        <td>{{ row.times_banned }}</td>
+        <td>{{ row.pick_win_rate | percent }}</td>
+        <td>{{ row.pick_rate | percent }}</td>
+        <td>{{ row.ban_rate | percent }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
